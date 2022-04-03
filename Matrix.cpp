@@ -120,18 +120,126 @@ namespace zich {
         }
         return false;
     }
+    /**
+     * Checking if this matrix is greater then other matrix
+     * @param other matrix for which we test if this matrix is greater then it
+     * @return true if sum of this matrix is greater then sum of other matrix false otherwise
+     */
     bool Matrix::operator>(const Matrix &other) {
         if (other.row() != this->row() || other.cols() != this->cols()) {
             throw invalid_argument("Both matrices need to be the same size");
         }
-        double sum_me;
-        double sum_other;
+        double sum_me =0 ;
+        double sum_other = 0;
         for (int i = 0; i < row(); ++i) {
             for (int j = 0; j <cols(); ++j) {
-                if(this->matrix[i][j] != other.matrix[i][j])
-                    return true;
+                sum_me+=this->matrix[i][j];
+                sum_other+=other.matrix[i][j];
             }
         }
-        return false;
+        return sum_me>sum_other;
+    }
+    /**
+ * Checking if this matrix is smaller then other matrix
+ * @param other matrix for which we test if this matrix is smaller then it
+ * @return true if sum of this matrix is smaller then sum of other matrix false otherwise
+ */
+    bool Matrix::operator<(const Matrix &other) {
+        if (other.row() != this->row() || other.cols() != this->cols()) {
+            throw invalid_argument("Both matrices need to be the same size");
+        }
+        double sum_me =0 ;
+        double sum_other = 0;
+        for (int i = 0; i < row(); ++i) {
+            for (int j = 0; j <cols(); ++j) {
+                sum_me+=this->matrix[i][j];
+                sum_other+=other.matrix[i][j];
+            }
+        }
+        return sum_me<sum_other;
+    }
+    /**
+ * Checking if this matrix is greater or equal to other matrix
+ * @param other matrix for which we test if this matrix is greater or equal to it
+ * @return true if sum of this matrix is greater or equal then the sum of other matrix false otherwise
+ */
+    bool Matrix::operator>=(const Matrix &other) {
+        if (other.row() != this->row() || other.cols() != this->cols()) {
+            throw invalid_argument("Both matrices need to be the same size");
+        }
+        double sum_me =0 ;
+        double sum_other = 0;
+        for (int i = 0; i < row(); ++i) {
+            for (int j = 0; j <cols(); ++j) {
+                sum_me+=this->matrix[i][j];
+                sum_other+=other.matrix[i][j];
+            }
+        }
+        return sum_me>=sum_other;
+    }
+    /**
+    * Checking if this matrix is smaller or equal to other matrix
+    * @param other matrix for which we test if this matrix is smaller or equal to it
+    * @return true if sum of this matrix is smaller or equal then the sum of other matrix false otherwise
+    */
+    bool Matrix::operator<=(const Matrix &other) {
+        if (other.row() != this->row() || other.cols() != this->cols()) {
+            throw invalid_argument("Both matrices need to be the same size");
+        }
+        double sum_me =0 ;
+        double sum_other = 0;
+        for (int i = 0; i < row(); ++i) {
+            for (int j = 0; j <cols(); ++j) {
+                sum_me+=this->matrix[i][j];
+                sum_other+=other.matrix[i][j];
+            }
+        }
+        return sum_me<=sum_other;
+    }
+    /**
+     * Adding 1 to each entry in this matrix prefix.
+     * @return this matrix with each entry incremented by 1
+     */
+    Matrix &Matrix::operator++() {
+        for (int i = 0; i < row(); ++i) {
+            for (int j = 0; j <cols(); ++j) {
+                this->matrix[i][j]++;
+            }
+        }
+        return *this;
+    }
+    /**
+    * Subtracting 1 to each entry in this matrix postfix.
+    * @return this matrix with each entry decremented by 1
+    */
+    void Matrix::operator++(int we_are_postfixing){
+        for (int i = 0; i < row(); ++i) {
+            for (int j = 0; j <cols(); ++j) {
+                this->matrix[i][j]++;
+            }
+        }
+    }
+    /**
+ * Subtracting 1 to each entry in this matrix prefix.
+ * @return this matrix with each entry decremented by 1
+ */
+    Matrix &Matrix::operator--() {
+        for (int i = 0; i < row(); ++i) {
+            for (int j = 0; j <cols(); ++j) {
+                this->matrix[i][j]--;
+            }
+        }
+        return *this;
+    }
+    /**
+    * Subtracting 1 to each entry in this matrix postfix.
+    * @return this matrix with each entry decremented by 1
+    */
+    void Matrix::operator--(int we_are_postfixing){
+        for (int i = 0; i < row(); ++i) {
+            for (int j = 0; j <cols(); ++j) {
+                this->matrix[i][j]--;
+            }
+        }
     }
 }

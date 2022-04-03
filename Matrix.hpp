@@ -46,6 +46,7 @@ namespace zich {
         Matrix operator-(Matrix &other) const;
         Matrix& operator+=(const Matrix& other);
         Matrix& operator-=(const Matrix& other);
+
         //comparison operators
         bool operator==(const Matrix& other);
         bool operator!=(const Matrix& other);
@@ -53,8 +54,12 @@ namespace zich {
         bool operator<(const Matrix& other);
         bool operator>=(const Matrix& other);
         bool operator<=(const Matrix& other);
-        //prefix|postfix increment|decrement
 
+        //prefix|postfix increment|decrement
+        Matrix& operator++();
+        void operator++(int we_are_postfixing);
+        Matrix& operator--();
+        void operator--(int we_are_postfixing);
         //scalar multiplication
 
         //matrix multiplication
