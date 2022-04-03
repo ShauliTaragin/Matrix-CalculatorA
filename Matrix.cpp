@@ -6,18 +6,24 @@
 
 namespace zich {
 
-    //i know i need to return a new matrix that is minus matrix
+    /**
+     * Unary minus operation on this matrix
+     * @return a copy of this matrix with - for each entry
+     */
     Matrix Matrix::operator-() {
         std::vector<double> arr;
-        for (int i = 0; i < this->row() * this->cols(); ++i) {
+        for (size_t i = 0; i < this->row() * this->cols(); ++i) {
             arr[i] = - this->matrix[i/cols()][i%cols()];
         }
         return Matrix(arr , this->row() , this->cols());
     }
-
+    /**
+    * Unary plus operation on this matrix
+    * @return a copy of this matrix
+    */
     Matrix Matrix::operator+() {
         std::vector<double> arr;
-        for (int i = 0; i < this->row() * this->cols(); ++i) {
+        for (size_t i = 0; i < this->row() * this->cols(); ++i) {
             arr[i] = this->matrix[i/cols()][i%cols()];
         }
         return Matrix(arr , this->row() , this->cols());
@@ -33,7 +39,7 @@ namespace zich {
             throw invalid_argument("Both matrices need to be the same size");
         }
         std::vector<double> arr;
-        for (int i = 0; i < other.row() * other.cols(); ++i) {
+        for (size_t i = 0; i < other.row() * other.cols(); ++i) {
             arr[i] = other.matrix[i/cols()][i%cols()] + this->matrix[i/cols()][i%cols()];
         }
         return Matrix(arr , this->row() , this->cols());
@@ -48,7 +54,7 @@ namespace zich {
             throw invalid_argument("Both matrices need to be the same size");
         }
         std::vector<double> arr;
-        for (int i = 0; i < other.row() * other.cols(); ++i) {
+        for (size_t i = 0; i < other.row() * other.cols(); ++i) {
             arr[i] = this->matrix[i/cols()][i%cols()] - other.matrix[i/cols()][i%cols()] ;
         }
         return Matrix(arr , this->row() , this->cols());
@@ -63,7 +69,7 @@ namespace zich {
         if (other.row() != this->row() || other.cols() != this->cols()) {
             throw invalid_argument("Both matrices need to be the same size");
         }
-        for (int i = 0; i < row(); ++i) {
+        for (size_t i = 0; i < row(); ++i) {
             for (int j = 0; j <cols(); ++j) {
                 this->matrix[i][j] += other.matrix[i][j];
             }
@@ -79,8 +85,8 @@ namespace zich {
         if (other.row() != this->row() || other.cols() != this->cols()) {
             throw invalid_argument("Both matrices need to be the same size");
         }
-        for (int i = 0; i < row(); ++i) {
-            for (int j = 0; j <cols(); ++j) {
+        for (size_t i = 0; i < row(); ++i) {
+            for (size_t j = 0; j <cols(); ++j) {
                 this->matrix[i][j] -= other.matrix[i][j];
             }
         }
@@ -95,8 +101,8 @@ namespace zich {
         if (other.row() != this->row() || other.cols() != this->cols()) {
             throw invalid_argument("Both matrices need to be the same size");
         }
-        for (int i = 0; i < row(); ++i) {
-            for (int j = 0; j <cols(); ++j) {
+        for (size_t i = 0; i < row(); ++i) {
+            for (size_t j = 0; j <cols(); ++j) {
                 if(this->matrix[i][j] != other.matrix[i][j])
                     return false;
             }
@@ -112,8 +118,8 @@ namespace zich {
         if (other.row() != this->row() || other.cols() != this->cols()) {
             throw invalid_argument("Both matrices need to be the same size");
         }
-        for (int i = 0; i < row(); ++i) {
-            for (int j = 0; j <cols(); ++j) {
+        for (size_t i = 0; i < row(); ++i) {
+            for (size_t j = 0; j <cols(); ++j) {
                 if(this->matrix[i][j] != other.matrix[i][j])
                     return true;
             }
@@ -131,8 +137,8 @@ namespace zich {
         }
         double sum_me =0 ;
         double sum_other = 0;
-        for (int i = 0; i < row(); ++i) {
-            for (int j = 0; j <cols(); ++j) {
+        for (size_t i = 0; i < row(); ++i) {
+            for (size_t j = 0; j <cols(); ++j) {
                 sum_me+=this->matrix[i][j];
                 sum_other+=other.matrix[i][j];
             }
@@ -150,8 +156,8 @@ namespace zich {
         }
         double sum_me =0 ;
         double sum_other = 0;
-        for (int i = 0; i < row(); ++i) {
-            for (int j = 0; j <cols(); ++j) {
+        for (size_t i = 0; i < row(); ++i) {
+            for (size_t j = 0; j <cols(); ++j) {
                 sum_me+=this->matrix[i][j];
                 sum_other+=other.matrix[i][j];
             }
@@ -169,8 +175,8 @@ namespace zich {
         }
         double sum_me =0 ;
         double sum_other = 0;
-        for (int i = 0; i < row(); ++i) {
-            for (int j = 0; j <cols(); ++j) {
+        for (size_t i = 0; i < row(); ++i) {
+            for (size_t j = 0; j <cols(); ++j) {
                 sum_me+=this->matrix[i][j];
                 sum_other+=other.matrix[i][j];
             }
@@ -188,8 +194,8 @@ namespace zich {
         }
         double sum_me =0 ;
         double sum_other = 0;
-        for (int i = 0; i < row(); ++i) {
-            for (int j = 0; j <cols(); ++j) {
+        for (size_t i = 0; i < row(); ++i) {
+            for (size_t j = 0; j <cols(); ++j) {
                 sum_me+=this->matrix[i][j];
                 sum_other+=other.matrix[i][j];
             }
@@ -201,8 +207,8 @@ namespace zich {
      * @return this matrix with each entry incremented by 1
      */
     Matrix &Matrix::operator++() {
-        for (int i = 0; i < row(); ++i) {
-            for (int j = 0; j <cols(); ++j) {
+        for (size_t i = 0; i < row(); ++i) {
+            for (size_t j = 0; j <cols(); ++j) {
                 this->matrix[i][j]++;
             }
         }
@@ -213,8 +219,8 @@ namespace zich {
     * @return this matrix with each entry decremented by 1
     */
     void Matrix::operator++(int we_are_postfixing){
-        for (int i = 0; i < row(); ++i) {
-            for (int j = 0; j <cols(); ++j) {
+        for (size_t i = 0; i < row(); ++i) {
+            for (size_t j = 0; j <cols(); ++j) {
                 this->matrix[i][j]++;
             }
         }
@@ -224,8 +230,8 @@ namespace zich {
  * @return this matrix with each entry decremented by 1
  */
     Matrix &Matrix::operator--() {
-        for (int i = 0; i < row(); ++i) {
-            for (int j = 0; j <cols(); ++j) {
+        for (size_t i = 0; i < row(); ++i) {
+            for (size_t j = 0; j <cols(); ++j) {
                 this->matrix[i][j]--;
             }
         }
@@ -236,10 +242,35 @@ namespace zich {
     * @return this matrix with each entry decremented by 1
     */
     void Matrix::operator--(int we_are_postfixing){
-        for (int i = 0; i < row(); ++i) {
-            for (int j = 0; j <cols(); ++j) {
+        for (size_t i = 0; i < row(); ++i) {
+            for (size_t j = 0; j <cols(); ++j) {
                 this->matrix[i][j]--;
             }
         }
+    }
+    /**
+     * Multiplying a scalar and a matrix
+     * @param m the matrix which we are using for the multiplication
+     * @param scalar  which we are using for the multiplication
+     * @return a new matrix which is the product of scalar*m
+     */
+    Matrix operator*(const double scalar , const Matrix &m ) {
+        std::vector<double> arr;
+        for (size_t i = 0; i < m.row() * m.cols(); ++i) {
+            arr[i] =m.matrix[i/m.cols()][i%m.cols()] * scalar;
+        }
+        return Matrix(arr , m.row() , m.cols());
+    }
+
+    Matrix operator*(const Matrix &m1, const Matrix &m2) {
+        return Matrix(std::vector(), 0, 0);
+    }
+
+    std::ostream &operator<<(ostream &output, const Matrix &m) {
+        return ;
+    }
+
+    std::istream &operator>>(istream &input, Matrix &m) {
+        return ;
     }
 }

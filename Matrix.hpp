@@ -30,10 +30,10 @@ namespace zich {
                 }
             }
         }
-        int row() const {
+        size_t row() const { //check add noniscard
             return this->matrix.size();
         }
-        int cols() const {
+        size_t cols() const {
             return this->matrix[0].size();
         }
         // in keeping with conventional practice I shall declare all our operator functions here and implement them in the cpp class.
@@ -61,10 +61,12 @@ namespace zich {
         Matrix& operator--();
         void operator--(int we_are_postfixing);
         //scalar multiplication
-
+        friend Matrix operator*(const double scalar , const Matrix & m);
         //matrix multiplication
-
+        friend Matrix operator*(const Matrix & m1 , const Matrix & m2);
         //input output
+        friend std::ostream& operator<< (std::ostream& output, const Matrix& m);
+        friend std::istream& operator>> (std::istream& input , Matrix& m);
     };
 
 }
