@@ -1,8 +1,0 @@
-//
-// Created by shaul on 03/04/2022.
-//
-
-#ifndef MATRIX_CALCULATOR_A_MATRIX_H
-#define MATRIX_CALCULATOR_A_MATRIX_H
-
-#endif //MATRIX_CALCULATOR_A_MATRIX_H
