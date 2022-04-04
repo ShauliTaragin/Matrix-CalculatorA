@@ -24,8 +24,8 @@ namespace zich {
             if(rows*cols != mat.size()){
                 throw invalid_argument("The size you inputted is incorrect");
             }
-            for (int i = 0; i <rows; ++i) {
-                for (int j = 0; j <cols; ++j) {
+            for (size_t i = 0; i <rows; ++i) {
+                for (size_t j = 0; j <cols; ++j) {
                     this->matrix[i][j] = mat[cols*i +j];
                 }
             }
@@ -47,6 +47,10 @@ namespace zich {
         Matrix& operator+=(const Matrix& other);
         Matrix& operator-=(const Matrix& other);
 
+        //binary multiplication operators
+        Matrix operator*(double scalar) const;
+        Matrix& operator*=(double scalar);
+
         //comparison operators
         bool operator==(const Matrix& other);
         bool operator!=(const Matrix& other);
@@ -60,10 +64,13 @@ namespace zich {
         void operator++(int we_are_postfixing);
         Matrix& operator--();
         void operator--(int we_are_postfixing);
+
         //scalar multiplication
-        friend Matrix operator*(const double scalar , const Matrix & m);
+        friend Matrix operator*(double scalar , const Matrix & m);
+
         //matrix multiplication
         friend Matrix operator*(const Matrix & m1 , const Matrix & m2);
+
         //input output
         friend std::ostream& operator<< (std::ostream& output, const Matrix& m);
         friend std::istream& operator>> (std::istream& input , Matrix& m);

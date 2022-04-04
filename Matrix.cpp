@@ -70,7 +70,7 @@ namespace zich {
             throw invalid_argument("Both matrices need to be the same size");
         }
         for (size_t i = 0; i < row(); ++i) {
-            for (int j = 0; j <cols(); ++j) {
+            for (size_t j = 0; j <cols(); ++j) {
                 this->matrix[i][j] += other.matrix[i][j];
             }
         }
@@ -88,6 +88,31 @@ namespace zich {
         for (size_t i = 0; i < row(); ++i) {
             for (size_t j = 0; j <cols(); ++j) {
                 this->matrix[i][j] -= other.matrix[i][j];
+            }
+        }
+        return *this;
+    }
+    /**
+     * Multiplying a scalar and ^this^ matrix
+     * @param scalar  which we are using for the multiplication
+     * @return a new matrix which is the product of scalar*this
+     */
+    Matrix Matrix::operator*(double scalar) const {
+        std::vector<double> arr;
+        for (size_t i = 0; i < this->row() * this->cols(); ++i) {
+            arr[i] =this->matrix[i/this->cols()][i%this->cols()] * scalar;
+        }
+        return Matrix(arr , this->row() , this->cols());
+    }
+    /**
+    * Changing each entry in this matrix by Multiplying it by a scalar
+    * @param scalar  which we are using for the multiplication
+    * @return this matrix which is the product of scalar*this
+    */
+    Matrix &Matrix::operator*=(double scalar) {
+        for (size_t i = 0; i < row(); ++i) {
+            for (size_t j = 0; j <cols(); ++j) {
+                this->matrix[i][j] *= scalar ;
             }
         }
         return *this;
@@ -254,7 +279,7 @@ namespace zich {
      * @param scalar  which we are using for the multiplication
      * @return a new matrix which is the product of scalar*m
      */
-    Matrix operator*(const double scalar , const Matrix &m ) {
+    Matrix operator*(double scalar , const Matrix &m ) {
         std::vector<double> arr;
         for (size_t i = 0; i < m.row() * m.cols(); ++i) {
             arr[i] =m.matrix[i/m.cols()][i%m.cols()] * scalar;
@@ -273,4 +298,8 @@ namespace zich {
     std::istream &operator>>(istream &input, Matrix &m) {
         return ;
     }
+
+
+
+
 }
