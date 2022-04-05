@@ -14,9 +14,9 @@ namespace zich{
     public:
         // Constructor taking a vector and a matrix size
         //not using an initializing list because we need to for by for all the values.
-        Matrix(std::vector<double> arr,size_t ,size_t);
+        Matrix(std::vector<double> arr,int ,int);
 
-        size_t row() const { //check add noniscard
+        size_t row() const {
             return matrix.size();
         }
         size_t cols() const {
@@ -38,8 +38,8 @@ namespace zich{
         Matrix& operator*=(double scalar);
 
         //comparison operators
-        bool operator==(const Matrix& other);
-        bool operator!=(const Matrix& other);
+        bool operator==(Matrix& other);
+        bool operator!=(Matrix& other);
         bool operator>(const Matrix& other);
         bool operator<(const Matrix& other);
         bool operator>=(const Matrix& other);

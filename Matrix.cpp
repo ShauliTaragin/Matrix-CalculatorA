@@ -3,10 +3,11 @@
 //
 
 #include "Matrix.hpp"
+
 using namespace std;
 namespace zich {
 
-    Matrix::Matrix(std::vector<double> arr, size_t rows, size_t cols) {
+    Matrix::Matrix(std::vector<double> arr, int rows, int cols) {
         if (rows < 0 || cols < 0) {
             throw std::invalid_argument("Please enter only non negative integers");
         }
@@ -16,11 +17,12 @@ namespace zich {
         for (size_t i = 0; i < rows; ++i) {
             matrix.push_back(std::vector<double>());
             for (size_t j = 0; j < cols; ++j) {
-                size_t index = i * cols + j;
+                size_t index = i * static_cast<unsigned long>(cols) + j;
                 matrix.at(i).push_back(arr.at(index));
             }
         }
     }
+
     /**
      * Unary minus operation on this matrix
      * @return a copy of this matrix with - for each entry
@@ -28,10 +30,9 @@ namespace zich {
     Matrix Matrix::operator-() {
         std::vector<double> arr;
         for (size_t i = 0; i < this->row() * this->cols(); ++i) {
-            if(this->matrix[i / cols()][i % cols()]!=0) {
+            if (this->matrix[i / cols()][i % cols()] != 0) {
                 arr.push_back(-this->matrix[i / cols()][i % cols()]);
-            }
-            else{
+            } else {
                 arr.push_back(0);
             }
         }
@@ -148,14 +149,15 @@ namespace zich {
      * @param other matrix for which we test if our matrix equals it
      * @return true if they are identical false otherwise
      */
-    bool Matrix::operator==(const Matrix &other) {
+    bool Matrix::operator==( Matrix &other) {
         if (other.row() != this->row() || other.cols() != this->cols()) {
             throw invalid_argument("Both matrices need to be the same size");
         }
         for (size_t i = 0; i < row(); ++i) {
             for (size_t j = 0; j < cols(); ++j) {
-                if (this->matrix[i][j] != other.matrix[i][j])
+                if (this->matrix[i][j] != other.matrix[i][j]) {
                     return false;
+                }
             }
         }
         return true;
@@ -166,14 +168,15 @@ namespace zich {
     * @param other matrix for which we test if our matrix doesn't equal it
     * @return false if they are identical true otherwise
     */
-    bool Matrix::operator!=(const Matrix &other) {
+    bool Matrix::operator!=(Matrix &other) {
         if (other.row() != this->row() || other.cols() != this->cols()) {
             throw invalid_argument("Both matrices need to be the same size");
         }
         for (size_t i = 0; i < row(); ++i) {
             for (size_t j = 0; j < cols(); ++j) {
-                if (this->matrix[i][j] != other.matrix[i][j])
+                if (this->matrix[i][j] != other.matrix[i][j]) {
                     return true;
+                }
             }
         }
         return false;
@@ -337,6 +340,7 @@ namespace zich {
         }
         return Matrix(arr, m1.row(), m2.cols());
     }
+
     /**
      * My "Printing" matrix override
      * @param output ostream we work on
@@ -346,20 +350,18 @@ namespace zich {
     std::ostream &operator<<(ostream &output, const Matrix &m) {
         for (size_t i = 0; i < m.row(); ++i) {
             for (size_t j = 0; j < m.cols(); ++j) {
-                if(j==0) {
-                    output <<'[' ;
+                if (j == 0) {
+                    output << '[';
                 }
                 if (j != m.cols() - 1) {
                     output << m.matrix[i][j] << ' ';
-                }
-                else {
-                        output << m.matrix[i][j] << "]\n";
-                    }
+                } else {
+                    output << m.matrix[i][j] << "]\n";
                 }
             }
+        }
         return output;
     }
-
 
 
     //need to implement this
