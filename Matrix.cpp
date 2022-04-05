@@ -45,7 +45,7 @@ namespace zich {
     Matrix Matrix::operator+() {
         std::vector<double> arr;
         for (size_t i = 0; i < this->row() * this->cols(); ++i) {
-            arr[i] = this->matrix[i / cols()][i % cols()];
+            arr.push_back(this->matrix[i / cols()][i % cols()]);
         }
         return Matrix(arr, this->row(), this->cols());
     }
@@ -61,7 +61,7 @@ namespace zich {
         }
         std::vector<double> arr;
         for (size_t i = 0; i < other.row() * other.cols(); ++i) {
-            arr[i] = other.matrix[i / cols()][i % cols()] + this->matrix[i / cols()][i % cols()];
+            arr.push_back(other.matrix[i / cols()][i % cols()] + this->matrix[i / cols()][i % cols()]);
         }
         return Matrix(arr, this->row(), this->cols());
     }
@@ -77,7 +77,7 @@ namespace zich {
         }
         std::vector<double> arr;
         for (size_t i = 0; i < other.row() * other.cols(); ++i) {
-            arr[i] = this->matrix[i / cols()][i % cols()] - other.matrix[i / cols()][i % cols()];
+            arr.push_back(this->matrix[i / cols()][i % cols()] - other.matrix[i / cols()][i % cols()]);
         }
         return Matrix(arr, this->row(), this->cols());
     }
@@ -124,7 +124,7 @@ namespace zich {
     Matrix Matrix::operator*(double scalar) const {
         std::vector<double> arr;
         for (size_t i = 0; i < this->row() * this->cols(); ++i) {
-            arr[i] = this->matrix[i / this->cols()][i % this->cols()] * scalar;
+            arr.push_back(this->matrix[i / this->cols()][i % this->cols()] * scalar);
         }
         return Matrix(arr, this->row(), this->cols());
     }
@@ -318,7 +318,7 @@ namespace zich {
     Matrix operator*(double scalar, const Matrix &m) {
         std::vector<double> arr;
         for (size_t i = 0; i < m.row() * m.cols(); ++i) {
-            arr[i] = m.matrix[i / m.cols()][i % m.cols()] * scalar;
+            arr.push_back(m.matrix[i / m.cols()][i % m.cols()] * scalar);
         }
         return Matrix(arr, m.row(), m.cols());
     }
@@ -327,7 +327,7 @@ namespace zich {
         if (m1.cols() != m2.row()) {
             throw invalid_argument("Sized not eligible for matrix multiplication");
         }
-        std::vector<double> arr;
+        std::vector<double> arr(m1.row() * m2.cols());
         for (size_t i = 0; i < m1.row(); ++i) {//for the new matrix
             for (size_t j = 0; j < m2.cols(); ++j) {
                 for (size_t k = 0; k < m1.cols(); ++k) {
@@ -337,7 +337,12 @@ namespace zich {
         }
         return Matrix(arr, m1.row(), m2.cols());
     }
-
+    /**
+     * My "Printing" matrix override
+     * @param output ostream we work on
+     * @param m A reference to the matrix we want to print
+     * @return The string(ostream) of matrix visualized nicely
+     */
     std::ostream &operator<<(ostream &output, const Matrix &m) {
         for (size_t i = 0; i < m.row(); ++i) {
             for (size_t j = 0; j < m.cols(); ++j) {
@@ -361,8 +366,6 @@ namespace zich {
     std::istream &operator>>(istream &input, Matrix &m) {
         return input;
     }
-
-
 
 
 }
