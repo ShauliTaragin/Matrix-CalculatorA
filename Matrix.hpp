@@ -5,36 +5,22 @@
 #include <exception>
 #include <iostream>
 
-using namespace std;
 
-namespace zich {
+namespace zich{
     class Matrix {
 
     private:
-        vector<vector<double>> matrix;
+        std::vector<std::vector<double>> matrix;
     public:
         // Constructor taking a vector and a matrix size
-        //not using and initializing list because we need to for by for all the values.
-        Matrix(vector<double> mat,
-               const int rows,
-               const int cols) {
-            if(rows<0 || cols <0){
-                throw invalid_argument("Please enter only non negative integers");
-            }
-            if(rows*cols != mat.size()){
-                throw invalid_argument("The size you inputted is incorrect");
-            }
-            for (size_t i = 0; i <rows; ++i) {
-                for (size_t j = 0; j <cols; ++j) {
-                    this->matrix[i][j] = mat[cols*i +j];
-                }
-            }
-        }
+        //not using an initializing list because we need to for by for all the values.
+        Matrix(std::vector<double> arr,size_t ,size_t);
+
         size_t row() const { //check add noniscard
-            return this->matrix.size();
+            return matrix.size();
         }
         size_t cols() const {
-            return this->matrix[0].size();
+            return matrix[0].size();
         }
         // in keeping with conventional practice I shall declare all our operator functions here and implement them in the cpp class.
         // unary operators
