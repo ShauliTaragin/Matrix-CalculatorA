@@ -6,6 +6,21 @@
 using namespace std;
 namespace zich {
 
+    Matrix::Matrix(std::vector<double> arr, size_t rows, size_t cols) {
+        if (rows < 0 || cols < 0) {
+            throw std::invalid_argument("Please enter only non negative integers");
+        }
+        if (rows * cols != arr.size()) {
+            throw std::invalid_argument("The size you inputted is incorrect");
+        }
+        for (size_t i = 0; i < rows; ++i) {
+            matrix.push_back(std::vector<double>());
+            for (size_t j = 0; j < cols; ++j) {
+                size_t index = i * cols + j;
+                matrix.at(i).push_back(arr.at(index));
+            }
+        }
+    }
     /**
      * Unary minus operation on this matrix
      * @return a copy of this matrix with - for each entry
@@ -13,7 +28,12 @@ namespace zich {
     Matrix Matrix::operator-() {
         std::vector<double> arr;
         for (size_t i = 0; i < this->row() * this->cols(); ++i) {
-            arr[i] = -this->matrix[i / cols()][i % cols()];
+            if(this->matrix[i / cols()][i % cols()]!=0) {
+                arr.push_back(-this->matrix[i / cols()][i % cols()]);
+            }
+            else{
+                arr.push_back(0);
+            }
         }
         return Matrix(arr, this->row(), this->cols());
     }
@@ -321,13 +341,17 @@ namespace zich {
     std::ostream &operator<<(ostream &output, const Matrix &m) {
         for (size_t i = 0; i < m.row(); ++i) {
             for (size_t j = 0; j < m.cols(); ++j) {
+                if(j==0) {
+                    output <<'[' ;
+                }
                 if (j != m.cols() - 1) {
                     output << m.matrix[i][j] << ' ';
-                } else {
-                    output << m.matrix[i][j] << '\n';
+                }
+                else {
+                        output << m.matrix[i][j] << "]\n";
+                    }
                 }
             }
-        }
         return output;
     }
 
@@ -338,21 +362,7 @@ namespace zich {
         return input;
     }
 
-    Matrix::Matrix(std::vector<double> arr, size_t rows, size_t cols) {
-        if (rows < 0 || cols < 0) {
-            throw std::invalid_argument("Please enter only non negative integers");
-        }
-        if (rows * cols != arr.size()) {
-            throw std::invalid_argument("The size you inputted is incorrect");
-        }
-        for (size_t i = 0; i < rows; ++i) {
-            matrix.push_back(std::vector<double>());
-            for (size_t j = 0; j < cols; ++j) {
-                size_t index = i * cols + j;
-                matrix.at(i).push_back(arr.at(index));
-            }
-        }
-    }
+
 
 
 }
